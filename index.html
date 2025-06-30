@@ -1,64 +1,299 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Broma Virus</title>
-  <style>
-    body {
-      background: black;
-      color: lime;
-      font-family: monospace;
-      padding: 20px;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⚠️ ALERTA DEL SISTEMA ⚠️</title>
+    <style>
+        /* FONDO OSCURO CON TEXTO CLARO */
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            color: #fff;
+            font-family: 'Courier New', monospace;
+            overflow: hidden;
+        }
 
-    #msg {
-      white-space: pre-wrap;
-    }
+        /* CONTENEDOR PRINCIPAL (CENTRADO Y LEGIBLE) */
+        .main-alert {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+            z-index: 100;
+            background: rgba(0, 0, 0, 0.9);
+            padding: 20px;
+            box-sizing: border-box;
+        }
 
-    #final {
-      display: none;
-      color: white;
-      font-size: 2em;
-    }
-  </style>
+        .main-alert h1 {
+            color: #ff5555;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 10px #ff0000;
+        }
+
+        .main-alert p {
+            color: #fff;
+            font-size: 1.2rem;
+            max-width: 800px;
+            line-height: 1.6;
+        }
+
+        /* VENTANAS EMERGENTES (POSICIONES CONTROLADAS) */
+        .popup {
+            position: absolute;
+            background: #111;
+            border: 1px solid #ff5555;
+            padding: 15px;
+            width: 300px;
+            z-index: 50;
+            box-shadow: 0 0 15px #ff0000;
+            animation: shake 0.5s infinite;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-3px); }
+            75% { transform: translateX(3px); }
+        }
+
+        .popup-title {
+            color: #ff5555;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .popup-content {
+            color: #ddd;
+            font-size: 0.9rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: #333;
+            margin-top: 10px;
+        }
+
+        .progress {
+            height: 100%;
+            background: #ff5555;
+            width: 0%;
+            animation: progress 5s forwards;
+        }
+
+        @keyframes progress {
+            to { width: 100%; }
+        }
+
+        /* CONSOLA DE HACKER (FIJA EN LA PARTE INFERIOR) */
+        .console {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 150px;
+            background: rgba(0, 0, 0, 0.8);
+            color: #55ff55;
+            padding: 10px;
+            overflow-y: auto;
+            border-top: 1px solid #55ff55;
+            z-index: 200;
+            font-family: 'Courier New', monospace;
+        }
+
+        .console-line {
+            margin: 5px 0;
+        }
+
+        /* EFECTO DE "ARCHIVOS CORROMPIDOS" (FLOTANTES) */
+        .corrupt-file {
+            position: absolute;
+            color: #ff5555;
+            font-size: 12px;
+            animation: float 8s linear forwards;
+            z-index: 10;
+        }
+
+        @keyframes float {
+            to { transform: translateY(-100vh) translateX(20px); opacity: 0; }
+        }
+
+        /* REVELACIÓN FINAL (BROMA) */
+        .prank-reveal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 9999;
+            text-align: center;
+        }
+
+        .prank-reveal h1 {
+            color: #55ff55;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .prank-reveal p {
+            color: #fff;
+            font-size: 1.2rem;
+            max-width: 600px;
+        }
+
+        .prank-reveal img {
+            width: 100px;
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
-
 <body>
-  <div id="msg"></div>
-  <div id="final">🎉 ¡TRANQUILO! Solo es una broma, tu PC está bien. 😊</div>
-  <script>
-    const msg = document.getElementById('msg');
-    const final = document.getElementById('final');
-    const lines = [
-      "Escaneando sistema...",
-      "Virus encontrado: Trojan.FakeAlert",
-      "Intentando eliminar...",
-      "Error: acceso denegado.",
-      "Propagando archivos...",
-      "Sistema comprometido...",
-      "Autodestrucción en 5 segundos..."
-    ];
-    let i = 0;
-    function next() {
-      if (i < lines.length) {
-        msg.innerText += lines[i++] + "\n";
-        if (i === lines.length) countdown(5);
-        else setTimeout(next, 1000);
-      }
-    }
-    function countdown(s) {
-      if (s > 0) {
-        msg.innerText += "En " + s + "...\n";
-        setTimeout(() => countdown(s - 1), 1000);
-      } else {
-        msg.style.display = 'none';
-        final.style.display = 'block';
-      }
-    }
-    next();
-  </script>
-</body>
+    <!-- MENSAJES PRINCIPALES (LEGIBLES) -->
+    <div class="main-alert" id="mainAlert">
+        <h1>¡ALERTA DE SEGURIDAD CRÍTICA!</h1>
+        <p>SE HAN DETECTADO MÚLTIPLES VIRUS EN TU SISTEMA:</p>
+        <p>• Troyano: <span style="color: #ff5555;">Trojan.Win32.Generic!gx3</span></p>
+        <p>• Ransomware: <span style="color: #ff5555;">Ransom.REvil!r5</span></p>
+        <p>• Spyware: <span style="color: #ff5555;">Spy.Keylogger!7z</span></p>
+        <p>TUS ARCHIVOS ESTÁN SIENDO ENCRIPTADOS...</p>
+        <p>CONEXIÓN REMOTA ACTIVA: <span style="color: #ff5555;">192.168.1.1 → 45.227.253.109 (RUSIA)</span></p>
+    </div>
 
+    <!-- VENTANAS EMERGENTES (NO TAPAN EL TEXTO PRINCIPAL) -->
+    <div id="popupsContainer"></div>
+
+    <!-- CONSOLA FALSA -->
+    <div class="console" id="console">
+        <div class="console-line">> Iniciando exploit CVE-2024-1234...</div>
+        <div class="console-line">> Bypasseando Windows Defender...</div>
+        <div class="console-line">> Accediendo a documentos del usuario...</div>
+    </div>
+
+    <!-- REVELACIÓN FINAL -->
+    <div class="prank-reveal" id="prankReveal">
+        <img src="https://cdn.pixabay.com/photo/2013/07/12/14/53/smiley-148582_960_720.png" alt="Emoji risa">
+        <h1>¡ERA UNA BROMA! 😆</h1>
+        <p>Tu computadora está segura. Esto era solo una simulación.</p>
+        <p>No se ha instalado ningún virus ni se ha accedido a tus archivos.</p>
+    </div>
+
+    <!-- SONIDOS (OPCIONAL) -->
+    <audio id="alertSound" loop>
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-alarm-digital-clock-beep-989.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // ====== SONIDO DE ALERTA ======
+        const alertSound = document.getElementById('alertSound');
+        alertSound.volume = 0.2;
+        alertSound.play();
+
+        // ====== GENERAR VENTANAS EMERGENTES ======
+        function createPopup() {
+            const popup = document.createElement('div');
+            popup.className = 'popup';
+            
+            // Posiciones aleatorias QUE NO TAPEN EL TEXTO PRINCIPAL
+            const safeZones = [
+                { left: '10%', top: '10%' },
+                { left: '70%', top: '10%' },
+                { left: '10%', top: '70%' },
+                { left: '70%', top: '70%' }
+            ];
+            const zone = safeZones[Math.floor(Math.random() * safeZones.length)];
+            popup.style.left = zone.left;
+            popup.style.top = zone.top;
+
+            const title = document.createElement('div');
+            title.className = 'popup-title';
+            title.textContent = 'ERROR DEL SISTEMA';
+
+            const content = document.createElement('div');
+            content.className = 'popup-content';
+            content.textContent = [
+                'No se puede detener el proceso malicioso',
+                'Acceso remoto detectado desde IP externa',
+                'C:\\Windows\\System32\\ corrompido',
+                'Encriptando archivos...'
+            ][Math.floor(Math.random() * 4)];
+
+            const progressBar = document.createElement('div');
+            progressBar.className = 'progress-bar';
+            const progress = document.createElement('div');
+            progress.className = 'progress';
+            progressBar.appendChild(progress);
+
+            popup.appendChild(title);
+            popup.appendChild(content);
+            popup.appendChild(progressBar);
+
+            document.getElementById('popupsContainer').appendChild(popup);
+
+            setTimeout(() => popup.remove(), 5000);
+        }
+
+        // ====== ARCHIVOS "CORROMPIDOS" FLOTANTES ======
+        function spawnCorruptFile() {
+            const file = document.createElement('div');
+            file.className = 'corrupt-file';
+            file.textContent = `[ENCRIPTADO] ${[
+                'fotos_vacaciones.jpg',
+                'documentos.rar',
+                'contraseñas.txt'
+            ][Math.floor(Math.random() * 3)]}`;
+            file.style.left = `${Math.random() * 80 + 10}%`;
+            file.style.top = '100vh';
+            document.body.appendChild(file);
+
+            setTimeout(() => file.remove(), 8000);
+        }
+
+        // ====== AÑADIR LÍNEAS A LA CONSOLA ======
+        function addConsoleLine() {
+            const consoleLines = [
+                "> Transfiriendo datos a servidor remoto...",
+                "> Webcam activada: Grabando...",
+                "> Robando cookies de navegación...",
+                "> Inyectando código en explorer.exe...",
+                "> Bitcoin address encontrada: 1HackerBTC..."
+            ];
+            const consoleElement = document.getElementById('console');
+            const newLine = document.createElement('div');
+            newLine.className = 'console-line';
+            newLine.textContent = consoleLines[Math.floor(Math.random() * consoleLines.length)];
+            consoleElement.appendChild(newLine);
+            consoleElement.scrollTop = consoleElement.scrollHeight;
+        }
+
+        // ====== INICIAR EFECTOS ======
+        setInterval(createPopup, 2000);
+        setInterval(spawnCorruptFile, 1500);
+        setInterval(addConsoleLine, 1000);
+
+        // ====== MOSTRAR REVELACIÓN FINAL ======
+        setTimeout(() => {
+            document.getElementById('mainAlert').style.display = 'none';
+            document.getElementById('popupsContainer').innerHTML = '';
+            document.getElementById('console').style.display = 'none';
+            document.getElementById('prankReveal').style.display = 'flex';
+            alertSound.pause();
+        }, 15000); // 15 segundos de broma
+    </script>
+</body>
 </html>
