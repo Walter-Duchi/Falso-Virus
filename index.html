@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>🔥 VIRUS DETECTADO 🔥</title>
   <style>
     body {
@@ -12,14 +14,13 @@
       margin: 0;
       padding: 0;
     }
+
     #terminal {
       padding: 20px;
       white-space: pre-wrap;
       font-size: 1.2em;
     }
-    .red {
-      color: red;
-    }
+
     .popup {
       position: fixed;
       background: white;
@@ -31,9 +32,13 @@
       font-family: Arial, sans-serif;
       font-size: 1.5em;
     }
+
     #finalMessage {
       position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
       background: white;
       color: black;
       display: flex;
@@ -47,6 +52,7 @@
     }
   </style>
 </head>
+
 <body>
   <div id="terminal"></div>
   <div id="finalMessage">
@@ -57,7 +63,6 @@
 
   <script>
     const terminal = document.getElementById('terminal');
-    const alarm = document.getElementById('alarm');
 
     const messages = [
       "Conectando a servidor malicioso...",
@@ -86,7 +91,6 @@
         terminal.innerHTML += messages[index] + "\n";
         if (Math.random() > 0.4) {
           createPopup();
-          playAlarm();
         }
         if (Math.random() > 0.6) {
           flashScreen();
@@ -119,17 +123,9 @@
       }, 200);
     }
 
-    function playAlarm() {
-      alarm.play();
-      if (navigator.vibrate) {
-        navigator.vibrate(200);
-      }
-    }
-
     function fakeCountdown(seconds) {
       if (seconds > 0) {
         terminal.innerHTML += `Autodestrucción en ${seconds}...\n`;
-        playAlarm();
         flashScreen();
         setTimeout(() => fakeCountdown(seconds - 1), 1000);
       } else {
@@ -142,12 +138,12 @@
       document.body.style.background = 'white';
     }
 
-    // Impedir cerrar fácilmente
-    window.onbeforeunload = function() {
+    window.onbeforeunload = function () {
       return "¡Tu sistema está comprometido! ¿Seguro que quieres salir?";
     };
 
     showNextMessage();
   </script>
 </body>
+
 </html>
