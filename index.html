@@ -1,149 +1,47 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>🔥 VIRUS DETECTADO 🔥</title>
+  <title>Broma Virus</title>
   <style>
-    body {
-      background: black;
-      color: lime;
-      font-family: monospace;
-      overflow: hidden;
-      margin: 0;
-      padding: 0;
-    }
-
-    #terminal {
-      padding: 20px;
-      white-space: pre-wrap;
-      font-size: 1.2em;
-    }
-
-    .popup {
-      position: fixed;
-      background: white;
-      color: black;
-      border: 5px solid red;
-      padding: 30px;
-      z-index: 1000;
-      box-shadow: 0 0 40px red;
-      font-family: Arial, sans-serif;
-      font-size: 1.5em;
-    }
-
-    #finalMessage {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: white;
-      color: black;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 3em;
-      font-family: Arial, sans-serif;
-      display: none;
-      z-index: 2000;
-      text-align: center;
-    }
+    body { background: black; color: lime; font-family: monospace; padding: 20px; }
+    #msg { white-space: pre-wrap; }
+    #final { display: none; color: white; font-size: 2em; }
   </style>
 </head>
-
 <body>
-  <div id="terminal"></div>
-  <div id="finalMessage">
-    🎉 ¡Sorpresa! <br><br>
-    TODO FUE UNA BROMA INOFENSIVA.<br>
-    Tu PC está completamente a salvo. 😊
-  </div>
-
+  <div id="msg"></div>
+  <div id="final">🎉 ¡TRANQUILO! Solo es una broma, tu PC está bien. 😊</div>
   <script>
-    const terminal = document.getElementById('terminal');
-
-    const messages = [
-      "Conectando a servidor malicioso...",
-      "Inyectando código malicioso...",
-      "Desactivando sistema de seguridad...",
-      "Virus detectado: Trojan.Win32.Generic",
-      "Propagando ransomware...",
-      "Accediendo a archivos bancarios...",
-      "Recopilando contraseñas guardadas...",
-      "Desactivando protección de Windows...",
-      "Bloqueando teclado...",
-      "Accediendo a cámara web...",
-      "Tomando capturas de pantalla...",
-      "Transfiriendo datos a servidor remoto...",
-      "Instalando backdoor persistente...",
-      "Clonando disco duro...",
-      "¡ERROR CRÍTICO DEL SISTEMA!",
-      "Pantalla azul de la muerte inminente...",
-      "Autodestrucción del sistema en 15 segundos..."
+    const msg = document.getElementById('msg');
+    const final = document.getElementById('final');
+    const lines = [
+      "Escaneando sistema...",
+      "Virus encontrado: Trojan.FakeAlert",
+      "Intentando eliminar...",
+      "Error: acceso denegado.",
+      "Propagando archivos...",
+      "Sistema comprometido...",
+      "Autodestrucción en 5 segundos..."
     ];
-
-    let index = 0;
-
-    function showNextMessage() {
-      if (index < messages.length) {
-        terminal.innerHTML += messages[index] + "\n";
-        if (Math.random() > 0.4) {
-          createPopup();
-        }
-        if (Math.random() > 0.6) {
-          flashScreen();
-        }
-        index++;
-        setTimeout(showNextMessage, 700 + Math.random() * 800);
-      } else {
-        fakeCountdown(15);
+    let i = 0;
+    function next() {
+      if (i < lines.length) {
+        msg.innerText += lines[i++] + "\n";
+        if (i === lines.length) countdown(5);
+        else setTimeout(next, 1000);
       }
     }
-
-    function createPopup() {
-      const popup = document.createElement('div');
-      popup.className = 'popup';
-      popup.style.top = Math.random() * (window.innerHeight - 150) + 'px';
-      popup.style.left = Math.random() * (window.innerWidth - 300) + 'px';
-      popup.innerHTML = "<strong>⚠️ VIRUS DETECTADO ⚠️</strong><br>Tu sistema está comprometido.";
-      document.body.appendChild(popup);
-      setTimeout(() => {
-        popup.remove();
-      }, 2500);
-    }
-
-    function flashScreen() {
-      document.body.style.background = 'red';
-      document.body.style.color = 'white';
-      setTimeout(() => {
-        document.body.style.background = 'black';
-        document.body.style.color = 'lime';
-      }, 200);
-    }
-
-    function fakeCountdown(seconds) {
-      if (seconds > 0) {
-        terminal.innerHTML += `Autodestrucción en ${seconds}...\n`;
-        flashScreen();
-        setTimeout(() => fakeCountdown(seconds - 1), 1000);
+    function countdown(s) {
+      if (s > 0) {
+        msg.innerText += "En " + s + "...\n";
+        setTimeout(() => countdown(s - 1), 1000);
       } else {
-        revealPrank();
+        msg.style.display = 'none';
+        final.style.display = 'block';
       }
     }
-
-    function revealPrank() {
-      document.getElementById('finalMessage').style.display = 'flex';
-      document.body.style.background = 'white';
-    }
-
-    window.onbeforeunload = function () {
-      return "¡Tu sistema está comprometido! ¿Seguro que quieres salir?";
-    };
-
-    showNextMessage();
+    next();
   </script>
 </body>
-
 </html>
